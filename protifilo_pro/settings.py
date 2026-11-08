@@ -22,12 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'cle-de-dev-locale-peu-importe')
 
-
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# En local : True par defaut. En ligne : on met DEBUG=False dans le fichier WSGI.
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thibhan.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -57,8 +56,7 @@ ROOT_URLCONF = 'protifilo_pro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,6 +112,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [BASE_DIR / 'locale']
+
 TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
@@ -126,6 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Email
